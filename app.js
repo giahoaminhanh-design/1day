@@ -55,7 +55,7 @@ const SCENES=[
  {id:"home",bg:"exterior",time:"16:30",text:n=>withName(`Tan học. Hoàng hôn phủ hàng cây; xe đưa rước chờ trước cổng.`,n),choices:n=>[
    {label:`Mở mạng xem "ai làm gì hôm nay"`,delta:+0.35,outcome:withName(`Một cơn sóng trống rỗng dâng lên...`,n)},
    {label:"Nhìn trời, nghe nhạc nhẹ",delta:-0.2,outcome:withName(`Màu trời dịu lại...`,n)},
-   {label:"Nhắn xin bài tập nhóm khác",delta:+0.1,outcome:withName(`{name} đỡ lo...`,n)}],next:"ENDING"} // explicit token
+   {label:"Nhắn xin bài tập nhóm khác",delta:+0.1,outcome:withName(`{name} đỡ lo...`,n)}],next:"ENDING"}
 ];
 
 function App(){
@@ -71,13 +71,12 @@ function App(){
   useEffect(()=>{const t=setTimeout(()=>setReady(true),40);return()=>clearTimeout(t);},[i,ending]);
 
   const scene=SCENES[i];
-  const bg=ending? BG.exterior : (BG[scene.bg]||BG.exterior); // ending dùng mặt tiền trường
-  const progress=Math.round((i/(SCENES.length-1))*100);
+  const bg=ending? BG.exterior : (BG[scene.bg]||BG.exterior);
 
-  const goto=id=>{const k=SCENES.findIndex(x=>x.id===id); if(k>=0){setReady(False); si(k);} };
+  const goto=id=>{const k=SCENES.findIndex(x=>x.id===id); if(k>=0){setReady(false); si(k);} };
 
   const choose=o=>{sfx("msg"); setF(v=>+(v+(o.delta||0)).toFixed(2)); setOut({text:o.outcome,next:scene.next});};
-  const proceed=()=>{const nxt=out?.next; setOut(null); if(nxt==="ENDING"){ setEnding(True); } else { const k=SCENES.findIndex(x=>x.id===nxt); if(k>=0){ setReady(False); si(k);} }};
+  const proceed=()=>{const nxt=out?.next; setOut(null); if(nxt==="ENDING"){ setEnding(true); } else { const k=SCENES.findIndex(x=>x.id===nxt); if(k>=0){ setReady(false); si(k);} }};
 
   const level=f<=0? "Không bị FOMO" : f<1.0? "FOMO rất nhẹ (~0.3–0.9)" : f<2.2? "FOMO nhẹ" : f<3? "FOMO trung bình" : "FOMO nặng";
   const analysis=(()=>{const n=s.name||"bạn";const v=f;
@@ -102,12 +101,12 @@ function App(){
           <p>{analysis}</p>
           <p><strong>Lời khuyên:</strong> {advice}</p>
           <p className="small">Để hiểu rõ hơn về FOMO và cách quay lại với chính mình, hãy đọc <em>Cẩm nang Bye FOMO</em> hoặc trò chuyện cùng <strong>FOMO Buddy</strong>.</p>
-          <div className="footer"><button className="btn secondary" onClick={()=>{setEnding(False); si(0); setF(0); ss({name:""});}}>Chơi lại từ đầu</button></div>
+          <div className="footer"><button className="btn secondary" onClick={()=>{setEnding(false); si(0); setF(0); ss({name:""});}}>Chơi lại từ đầu</button></div>
         </div>
       ) : (
         <>
           <div className="topbar"><div className="badge">{scene.time}</div></div>
-          {"render" in scene? scene.render(s,ss,{goto:(id)=>{setEnding(False); si(SCENES.findIndex(x=>x.id===id));}})
+          {"render" in scene? scene.render(s,ss,{goto:(id)=>{setEnding(false); const k=SCENES.findIndex(x=>x.id===id); if(k>=0){ setReady(false); si(k);} }})
            : (out? (<div className="outcome"><h2>Kết quả lựa chọn</h2><p>{out.text}</p><div className="footer"><button className="btn" onClick={proceed}>Tiếp tục</button></div></div>)
                    : (<><h1>Ngày của em</h1><p>{typeof scene.text==="function"?scene.text(s.name):scene.text}</p><div className="choices">{scene.choices(s.name).map((c,idx)=>(<button key={idx} className="choice" onClick={()=>{ setF(v=>+(v+(c.delta||0)).toFixed(2)); setOut({text:c.outcome,next:scene.next}); }}>{c.label}</button>))}</div></>))}
         </>
