@@ -36,7 +36,7 @@
       <p><strong>Chào mừng bạn đến với ngày của em.</strong> Đây là một ngày học đường tương tác. Mỗi lựa chọn sẽ mở ra <em>trang kể diễn biến</em> theo tên của bạn, rồi nhấn <b>Tiếp tục</b> để đi tiếp.</p>
       <ul>
         <li>Nhạc nền phát ngay khi vào (điện thoại có thể cần chạm một cái).</li>
-        <li>FOMO tăng khi {name} bị kéo bởi ánh nhìn người khác; giảm khi {name} hiện diện, chủ động.</li>
+        <li>FOMO tăng khi bạn bị kéo bởi ánh nhìn người khác; giảm khi bạn hiện diện, chủ động.</li>
         <li>Cuối ngày có trang kết thúc: phân tích chỉ số + lời khuyên (Cẩm nang Bye FOMO / FOMO Buddy).</li>
       </ul>
       <div class="footer"><button class="btn" data-goto="name">Vào game</button></div>
@@ -54,7 +54,10 @@
     }},
     {id:'wake', bg:'corridor', time:'5:30', text:(n)=>withName(`Sáng sớm. Chuông reo. Mẹ gọi: "Dậy ăn sáng nè {name}!"`,n),
       choices:(n)=>[
-        {label:'Mở điện thoại xem thông báo', delta:+0.5, outcome:withName('{name} chạm vào màn hình, ánh sáng xanh bật lên như một phiên chợ sớm...',n)},
+        {label:'Mở điện thoại xem thông báo', delta:+0.5, outcome:withName('Tiếng chuông vừa dứt, {name} đã với tay tìm lấy chiếc điện thoại.  
+Ánh sáng xanh hắt lên khuôn mặt còn in dấu gối. Màn hình sáng như một phiên chợ sớm — nơi mọi người đã kịp kể cho nhau cả trăm mẩu chuyện.  
+Một vài thông báo hiện ra, vô thưởng vô phạt, nhưng tim {name} vẫn đập nhanh hơn.  
+Không biết là vì tò mò, hay vì sợ mình đang bỏ lỡ điều gì đó ngoài kia.',n)},
         {label:'Tắt chuông, duỗi người, hít sâu', delta:-0.2, outcome:withName('{name} úp điện thoại xuống, lưng duỗi nghe một tiếng "rắc" nho nhỏ...',n)},
         {label:"Nhắn bạn thân: 'Dậy chưa?'", delta:+0.1, outcome:withName('"{name}: Ê dậyyyy…" • "Bạn thân: Chưa… ngủ tiếp 5p :))" ...',n)},
         {label:'Ra bàn ăn ngay cho nóng', delta:-0.05, outcome:withName('{name} kéo ghế. Lòng đỏ trứng như mặt trời nằm trên đĩa...',n)}],
