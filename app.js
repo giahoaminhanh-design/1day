@@ -28,15 +28,18 @@
     }catch{}
   }
 
-  function withName(s, n){ return s.replaceAll('{name}', n || 'bạn'); }
+  {id:'guide', bg:'swings', time:'Hướng dẫn', render:(state)=>`
+  <h1>Ngày của em</h1>
+  <p><strong>Chào mừng bạn đến với ngày của em.</strong> Đây là một ngày học đường tương tác, nơi bạn sẽ lắng nghe chính mình.  
+  Mỗi lựa chọn sẽ mở ra <em>một đoạn kể diễn biến</em> theo cách bạn sống ngày hôm đó. Khi sẵn sàng, nhấn <b>Tiếp tục</b> để bắt đầu.</p>
+  <ul>
+    <li>Nhạc nền sẽ tự phát khi vào game (điện thoại có thể cần bạn chạm nhẹ một cái).</li>
+    <li>Chỉ số FOMO tăng khi bạn bị kéo theo ánh nhìn người khác; giảm khi bạn hiện diện và chủ động trong hiện tại.</li>
+    <li>Cuối ngày, bạn sẽ nhận một bản tóm tắt nhỏ: phân tích chỉ số, cùng vài lời gợi ý dịu dàng.</li>
+  </ul>
+  <div class="footer"><button class="btn" data-goto="name">Vào game</button></div>
+`},
 
-  const SCENES = [
-    {id:'guide', bg:'swings', time:'Hướng dẫn', render:(state)=>`
-      <h1>Ngày của em</h1>
-      <p><strong>Chào mừng bạn đến với ngày của em.</strong> Đây là một ngày học đường tương tác. Mỗi lựa chọn sẽ mở ra <em>trang kể diễn biến</em> theo tên của bạn, rồi nhấn <b>Tiếp tục</b> để đi tiếp.</p>
-      <ul>
-        <li>Nhạc nền phát ngay khi vào (điện thoại có thể cần chạm một cái).</li>
-        <li>FOMO tăng khi {name} bị kéo bởi ánh nhìn người khác; giảm khi {name} hiện diện, chủ động.</li>
         <li>Cuối ngày có trang kết thúc: phân tích chỉ số + lời khuyên (Cẩm nang Bye FOMO / FOMO Buddy).</li>
       </ul>
       <div class="footer"><button class="btn" data-goto="name">Vào game</button></div>
